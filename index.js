@@ -30,6 +30,7 @@ module.exports = {
   ConnectionManager,
   ModelManager,
   OperationManager,
+  RoutesManager,
   ServiceManager,
   TypeManager,
 };

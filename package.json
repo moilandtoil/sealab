@@ -1,11 +1,10 @@
 {
   "name": "sealab",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A GraphQL framework",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/jest",
-    "publish": "npm publish --userconfig ~/.npmrc --access public"
+    "test": "./node_modules/.bin/jest"
   },
   "repository": {
     "type": "git",
@@ -13,7 +12,6 @@
   },
   "author": "Moil & Toil",
   "license": "UNLICENSED",
-  "private": true,
   "bugs": {
     "url": "https://gitlab.com/moilandtoil/sealab/issues"
   },

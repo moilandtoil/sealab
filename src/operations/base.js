@@ -75,6 +75,13 @@ class BaseOperation {
     return this.application.conn(connName);
   }
 
+  model(modelName) {
+    if (this.application === null) {
+      throw new Error("Application container must be attached to operation");
+    }
+    return this.application.model(modelName);
+  }
+
   // abstract methods
   resolver(root, args, context) {
     throw new Error("Resolver not implemented");
