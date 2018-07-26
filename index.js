@@ -7,7 +7,7 @@ const SchemaBuilder = require("./src/schema-builder/schema_builder.js");
 
 const BaseOperation = require("./src/operations/base.js");
 const BaseRoute = require("./src/routes/base.js");
-const BaseService = require("./src/services/basejs");
+const BaseService = require("./src/services/base.js");
 const BaseType = require("./src/types/base.js");
 
 const ConnectionManager = require("./src/connections/manager.js");
