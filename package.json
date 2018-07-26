@@ -1,0 +1,30 @@
+{
+  "name": "sealab",
+  "version": "0.0.1",
+  "description": "A GraphQL framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jest",
+    "publish": "npm publish --userconfig ~/.npmrc --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/moilandtoil/sealab.git"
+  },
+  "author": "Moil & Toil",
+  "license": "UNLICENSED",
+  "private": true,
+  "bugs": {
+    "url": "https://gitlab.com/moilandtoil/sealab/issues"
+  },
+  "homepage": "https://gitlab.com/moilandtoil/sealab#README",
+  "devDependencies": {
+    "jest-cli": "^22.2.1",
+    "graphql": "^0.13.0",
+    "graphql-tools": "^2.21.0"
+  },
+  "dependencies": {
+    "change-case": "^3.0.2",
+    "lodash": "^4.17.5"
+  }
+}
