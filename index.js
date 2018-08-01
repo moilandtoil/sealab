@@ -5,6 +5,7 @@ const Application = require("./src/application/index.js");
 const DefaultLogger = require("./src/logger/default.js");
 const SchemaBuilder = require("./src/schema-builder/schema_builder.js");
 
+const BaseGuard = require("./src/guards/base.js");
 const BaseOperation = require("./src/operations/base.js");
 const BaseRoute = require("./src/routes/base.js");
 const BaseService = require("./src/services/base.js");
@@ -22,6 +23,7 @@ module.exports = {
   DefaultLogger,
   SchemaBuilder,
 
+  BaseGuard,
   BaseOperation,
   BaseRoute,
   BaseService,
