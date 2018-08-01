@@ -42,7 +42,7 @@ class RoutesManager {
           return routeInstance.action(req, res);
         }).catch((err) => {
           this.application.logger().error(JSON.stringify(err));
-          res.status(500).send("An error occurred while processing the webhook.");
+          res.status(500).send("An error occurred while processing the route.");
         });
       });
     }

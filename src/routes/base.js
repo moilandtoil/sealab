@@ -6,15 +6,15 @@ class BaseRoute {
   }
 
   route() {
-    throw new Error("Bad webhook implementation, route not specified");
+    throw new Error("Bad route implementation, `route` not specified");
   }
 
   method() {
-    throw new Error("Bad webhook implementation, route not specified");
+    throw new Error("Bad route implementation, `method` not specified");
   }
 
   action(req, res) {
-    throw new Error("Bad webhook implementation, action not specified");
+    throw new Error("Bad route implementation, `action` not specified");
   }
 
   logger() {
@@ -53,7 +53,7 @@ class BaseRoute {
 
   ensureApplication() {
     if (!this.application) {
-      throw new Error("Application container must be attached to webhook");
+      throw new Error("Application container must be attached to route");
     }
   }
 }
