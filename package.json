@@ -4,7 +4,8 @@
   "description": "A GraphQL framework",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/jest"
+    "test": "./node_modules/.bin/jest",
+    "publish": "npm --userconfig=~/.npmrc-moilandtoil publish"
   },
   "repository": {
     "type": "git",
