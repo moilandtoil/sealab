@@ -11,6 +11,7 @@ class Application {
     this.connectionManager = managers.connectionManager || new ConnectionManager();
     this.modelManager = managers.modelManager || new ModelManager();
     this.appLogger = logger;
+    this.pubsubEngine = null;
   }
 
   registerService(services) {
@@ -37,6 +38,10 @@ class Application {
     }
   }
 
+  registerPubSub(pubsub) {
+    this.pubsubEngine = pubsub;
+  }
+
   service(serviceName) {
     return this.serviceManager.getService(serviceName);
   }
@@ -47,6 +52,10 @@ class Application {
 
   model(modelName) {
     return this.modelManager.getModel(modelName);
+  }
+
+  pubsub() {
+    return this.pubsubEngine;
   }
 
   logger() {

@@ -58,8 +58,8 @@ describe("Extending a base operation", () => {
       expect(resolve).toHaveProperty("id");
     });
 
-    test("execute()", () => {
-      let exec = testOp.execute(null, null, { id: "foo" });
+    test("executeResolver()", () => {
+      let exec = testOp.executeResolver(null, null, { id: "foo" });
       expect(exec).toHaveProperty("id");
     });
 

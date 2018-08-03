@@ -7,6 +7,9 @@ const SchemaBuilder = require("./src/schema-builder/schema_builder.js");
 
 const BaseGuard = require("./src/guards/base.js");
 const BaseOperation = require("./src/operations/base.js");
+const BaseQueryOperation = require("./src/operations/base_query.js");
+const BaseMutationOperation = require("./src/operations/base_mutation.js");
+const BaseSubscriptionOperation = require("./src/operations/base_subscription");
 const BaseRoute = require("./src/routes/base.js");
 const BaseService = require("./src/services/base.js");
 const BaseType = require("./src/types/base.js");
@@ -25,6 +28,9 @@ module.exports = {
 
   BaseGuard,
   BaseOperation,
+  BaseQueryOperation,
+  BaseMutationOperation,
+  BaseSubscriptionOperation,
   BaseRoute,
   BaseService,
   BaseType,

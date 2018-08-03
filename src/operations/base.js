@@ -10,19 +10,23 @@ class BaseOperation {
     this.application = null;
   }
 
+  isSubscription() {
+    return false;
+  }
+
   getConfig() {
     return {
       name: this.name,
       entrypoint: this.entrypoint.toLowerCase(),
       typeDef: this.typeDef,
-      resolver: this.execute.bind(this),
+      resolver: this.executeResolver.bind(this),
       guards: this.guards
     };
   }
 
-  execute(root, args, context) {
+  executeResolver(root, args, context) {
     try {
-      this.debug(`Executing GQL operation '${this.name}'`);
+      this.debug(`Executing GQL resolver for operation '${this.name}'`);
       return this.resolver(root, args, context);
     } catch (err) {
       this.debug(`Error occurred executing operation... "${err.message}"`);
@@ -39,9 +43,7 @@ class BaseOperation {
   }
 
   logger() {
-    if (this.application === null) {
-      throw new Error("Application container must be attached to operation");
-    }
+    this.ensureApplication();
     return this.application.logger();
   }
 
@@ -62,29 +64,29 @@ class BaseOperation {
   }
 
   service(serviceName) {
-    if (this.application === null) {
-      throw new Error("Application container must be attached to operation");
-    }
+    this.ensureApplication();
     return this.application.service(serviceName);
   }
   
   conn(connName) {
-    if (this.application === null) {
-      throw new Error("Application container must be attached to operation");
-    }
+    this.ensureApplication();
     return this.application.conn(connName);
   }
 
   model(modelName) {
+    this.ensureApplication();
+    return this.application.model(modelName);
+  }
+
+  ensureApplication() {
     if (this.application === null) {
       throw new Error("Application container must be attached to operation");
     }
-    return this.application.model(modelName);
   }
 
   // abstract methods
   resolver(root, args, context) {
-    throw new Error("Resolver not implemented");
+    throw new Error("Resolver method not implemented");
   }
 }
 

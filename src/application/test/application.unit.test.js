@@ -89,6 +89,41 @@ describe("An application", () => {
     });
   });
 
+  describe("with pubsub", () => {
+
+    test("#returns null if not set", () => {
+      expect(application.pubsub()).toEqual(null);
+    });
+
+    test("#returns value if set", () => {
+      application.registerPubSub("test")
+      expect(application.pubsub()).toEqual("test");
+    });
+  });
+
+
+  describe("with model manager", () => {
+
+    class ModelA {}
+    class ModelB {}
+
+    test("can get model that is registered", () => {
+      application.registerModel(ModelA);
+      expect(application.model("model_a")).toBeDefined();
+    });
+
+    test("can get model that is registered with multiple others", () => {
+      application.registerModels([ModelA, ModelB]);
+      expect(application.model("model_b")).toBeDefined();
+    });
+
+    test("throw error getting non registered model", () => {
+      expect(() => {
+        application.model("derp");
+      }).toThrow();
+    });
+  });
+
   describe("with a registered service", () => {
 
     test("can get other service", () => {
@@ -98,10 +133,10 @@ describe("An application", () => {
     });
 
     test("can get other service and run foo", () => {
-        let test = application.registerService(TestService);
-        application.registerService(OtherService);
-        let other = test.service("other_service");
-        expect(other.foo()).toEqual("bar");
+      let test = application.registerService(TestService);
+      application.registerService(OtherService);
+      let other = test.service("other_service");
+      expect(other.foo()).toEqual("bar");
     });
 
     test("throw error getting non existent other service", () => {
