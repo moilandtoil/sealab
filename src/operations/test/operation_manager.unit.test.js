@@ -37,6 +37,26 @@ class TestOp2 extends BaseOperation {
   }
 }
 
+class ValidationTest extends BaseOperation {
+  constructor() {
+    super();
+    this.name = "TestOp3";
+    this.entrypoint = "Query";
+    this.typeDef = `type test3 {
+      id: String!
+    }`;
+    this.validation = {
+      id: this.schema.string().alphanum().min(3).max(5),
+    };
+  }
+
+  resolver(root, args, context) {
+    return {
+      id: context.id
+    };
+  }
+}
+
 // stub logger to prevent errors
 let stubbedLogger = {
   debug: function() {},
@@ -131,5 +151,17 @@ describe("registerOperation", () => {
       return [root, args, context, operation];
     });
     expect(schemaBuilder.resolvers["TestOp"](null, null, { id: "TestOp" })).resolves.toHaveProperty("id");
+  });
+
+  test("#validateInput() with correct input passes", () => {
+    const operation = new ValidationTest();
+    expect(manager.validateInput(operation, { id: "good" })).resolves.toHaveProperty("id");
+  });
+
+  test("#validateInput() with incorrect input fails", () => {
+    const operation = new ValidationTest();
+    expect(() => {
+      manager.validateInput(operation, { id: "baaaad" })
+    }).toThrow();
   });
 });

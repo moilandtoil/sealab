@@ -1,5 +1,7 @@
 "use strict";
 
+const Joi = require("joi");
+
 class OperationManager {
   constructor(schemaBuilder) {
     this.schemaBuilder = schemaBuilder;
@@ -15,6 +17,16 @@ class OperationManager {
       const hookedFunc = (root, args, context, info) => {
         let chain = Promise.resolve([root, args, context, operation]);
 
+        // validate input
+        chain = chain.then((result) => {
+          let args = result[1];
+          let operation = result[3];
+
+          this.validateInput(operation, args);
+          return result;
+        });
+
+        // run pre execution hooks
         for(let pre of this.preExecution) {
           chain = chain.then((result) => {
             return pre(...result);
@@ -43,11 +55,22 @@ class OperationManager {
       const hookedFunc = (root, args, context) => {
         let chain = Promise.resolve([root, args, context, operation]);
 
+        // validate input
+        chain = chain.then((result) => {
+          let args = result[1];
+          let operation = result[3];
+
+          this.validateInput(operation, args);
+          return result;
+        });
+
+        // run pre execution hooks
         for(let pre of this.preExecution) {
           chain = chain.then((result) => {
             return pre(...result);
           });
         }
+
         chain = chain.then((result) => {
           let root = result[0];
           let args = result[1];
@@ -76,6 +99,16 @@ class OperationManager {
 
   registerPreHook(callback) {
     this.preExecution.push(callback);
+  }
+
+  validateInput(operation, args) {
+    if (operation.validation) {
+      const result = Joi.validate(args, Joi.object().keys(operation.validation));
+      if (result.error) {
+        operation.inputError(result.error, args);
+      }
+      return result;
+    }
   }
 }
 

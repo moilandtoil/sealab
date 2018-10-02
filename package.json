@@ -1,6 +1,6 @@
 {
   "name": "sealab",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A GraphQL framework",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "change-case": "^3.0.2",
+    "joi": "^13.7.0",
     "lodash": "^4.17.5"
   }
 }

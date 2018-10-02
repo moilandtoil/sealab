@@ -1,5 +1,7 @@
 "use strict";
 
+const Joi = require("joi");
+
 class BaseOperation {
 
   constructor() {
@@ -8,6 +10,7 @@ class BaseOperation {
     this.typeDef = "";
     this.guards = [];
     this.application = null;
+    this.schema = Joi;
   }
 
   isSubscription() {
@@ -20,7 +23,8 @@ class BaseOperation {
       entrypoint: this.entrypoint.toLowerCase(),
       typeDef: this.typeDef,
       resolver: this.executeResolver.bind(this),
-      guards: this.guards
+      guards: this.guards,
+      validation: null,
     };
   }
 
@@ -39,7 +43,11 @@ class BaseOperation {
   }
 
   guardError(context) {
-    return Promise.reject('Request not authorized, one or more guard validations failed');
+    throw new Error('Request failed, one or more guard validations failed');
+  }
+
+  inputError(error, args) {
+    throw new Error(`Request failed, invalid input specified ("${error.details[0].message}")`);
   }
 
   logger() {
